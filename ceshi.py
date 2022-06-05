@@ -25,7 +25,7 @@ vocoder = gan_vocoder
 def gen_one_wav(synthesizer, in_fpath, embed, texts, seq):
     embeds = [embed] * len(texts)
     specs = synthesizer.synthesize_spectrograms(
-        texts, embeds, style_idx=-1, min_stop_token=4, steps=400)
+        texts, embeds, style_idx=-1, min_stop_token=4)
     breaks = [spec.shape[1] for spec in specs]
     spec = np.concatenate(specs, axis=1)
     generated_wav, output_sample_rate = vocoder.infer_waveform(spec)
