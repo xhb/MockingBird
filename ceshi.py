@@ -28,7 +28,7 @@ def gen_one_wav(synthesizer, in_fpath, embed, texts, seq):
         texts, embeds, style_idx=-1, min_stop_token=4)
     breaks = [spec.shape[1] for spec in specs]
     spec = np.concatenate(specs, axis=1)
-    generated_wav, output_sample_rate = vocoder.infer_waveform(spec)
+    generated_wav = vocoder.infer_waveform(spec)
     b_ends = np.cumsum(np.array(breaks) * synthesizer.hparams.hop_size)
     b_starts = np.concatenate(([0], b_ends[:-1]))
     wavs = [generated_wav[start:end] for start, end, in zip(b_starts, b_ends)]
