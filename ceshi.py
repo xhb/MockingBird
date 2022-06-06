@@ -96,10 +96,11 @@ def generate_wav(enc_model_fpath, syn_model_fpath, voc_model_fpath, in_fpath, in
 if (len(sys.argv) >= 3):
     my_txt = sys.argv[1]
     wav_file_name = sys.argv[2]
+    pt_name = sys.argv[3] if sys.argv[3] and len(sys.argv[3]) > 0 else "mandarin.pt"
     output = cn2an.transform(my_txt, "an2cn")
     generate_wav(
         Path("encoder/saved_models/pretrained.pt"),
-        Path("synthesizer/saved_models/mandarin.pt"),
+        Path("synthesizer/saved_models/%s" % (pt_name) ),
         Path("vocoder/saved_models/pretrained/g_hifigan.pt"), wav_file_name, output
     )
 
